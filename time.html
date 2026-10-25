@@ -1,0 +1,135 @@
+ <!DOCTYPE html>
+  <html lang="ru">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Время МСК</title>
+      <style>
+          /* Общие настройки страницы */
+          body {
+              margin: 0;
+              padding: 0;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              min-height: 100vh;
+              font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+              /* Красивый анимированный градиент на фоне */
+              background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+              background-size: 400% 400%;
+              animation: gradient 15s ease infinite;
+              color: #fff;
+              overflow: hidden;
+          }
+
+          @keyframes gradient {
+              0% { background-position: 0% 50%; }
+              50% { background-position: 100% 50%; }
+              100% { background-position: 0% 50%; }
+          }
+
+          /* Стеклянный контейнер */
+          .glass-card {
+              background: rgba(255, 255, 255, 0.15);
+              backdrop-filter: blur(15px);
+              -webkit-backdrop-filter: blur(15px);
+              border: 1px solid rgba(255, 255, 255, 0.2);
+              border-radius: 30px;
+              padding: 40px 60px;
+              text-align: center;
+              box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+              transition: transform 0.3s ease;
+              max-width: 400px;
+              width: 90%;
+          }
+
+          .glass-card:hover {
+              transform: translateY(-5px);
+          }
+
+          h1 {
+              font-weight: 300;
+              font-size: 1.5rem;
+              margin-bottom: 30px;
+              opacity: 0.9;
+              letter-spacing: 1px;
+          }
+
+          /* Стильная кнопка */
+          .btn-time {
+              background: #fff;
+              color: #e73c7e;
+              border: none;
+              padding: 15px 30px;
+              font-size: 1.1rem;
+              font-weight: 600;
+              border-radius: 50px;
+              cursor: pointer;
+              transition: all 0.3s ease;
+              box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+              outline: none;
+          }
+
+          .btn-time:hover {
+              background: #f0f0f0;
+              transform: scale(1.05);
+              box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+          }
+
+          .btn-time:active {
+              transform: scale(0.95);
+          }
+
+          /* Область вывода времени */
+          #time-display {
+              margin-top: 30px;
+              font-size: 3rem;
+              font-weight: 700;
+              min-height: 1.2em;
+              transition: all 0.5s ease;
+              text-shadow: 0 4px 10px rgba(0,0,0,0.2);
+          }
+
+          .fade-in {
+              animation: fadeIn 0.6s ease-out;
+          }
+
+          @keyframes fadeIn {
+              from { opacity: 0; transform: scale(0.8); }
+              to { opacity: 1; transform: scale(1); }
+          }
+      </style>
+  </head>
+  <body>
+
+      <div class="glass-card">
+          <h1>Узнать время в Москве</h1>
+          <button class="btn-time" onclick="showMoscowTime()">Показать время</button>
+          <div id="time-display"></div>
+      </div>
+
+      <script>
+          function showMoscowTime() {
+              const display = document.getElementById('time-display');
+
+              // Получаем текущее время и переводим его в часовой пояс Москвы (UTC+3)
+              const now = new Date();
+              const moscowTime = now.toLocaleTimeString('ru-RU', {
+                  timeZone: 'Europe/Moscow',
+                  hour: '2-digit',
+                  minute: '2-digit',
+                  second: '2-digit'
+              });
+
+              // Обновляем текст
+              display.innerText = moscowTime;
+
+              // Добавляем анимацию появления (сначала удаляем класс, потом добавляем)
+              display.classList.remove('fade-in');
+              void display.offsetWidth; // Магия для перезапуска анимации CSS
+              display.classList.add('fade-in');
+          }
+      </script>
+
+  </body>
+  </html>
